@@ -1,5 +1,8 @@
 package com.example;
-
+//실습
+//CustormerVO 객체 3개생성
+//CustormerList
+//CustormerPrint
 import com.example.vo.CustomerVO;
 
 public class Main05 {
