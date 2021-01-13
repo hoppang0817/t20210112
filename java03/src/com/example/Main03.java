@@ -54,8 +54,7 @@ public class Main03 {
 					db.deleteCustomer(new CustomerVO(id ,null,0,null));
 				}
 				else if(menu == 4) {
-					CustomerVO[] arr = db.selectCustomer();	
-					System.out.println("배열의 개수 : " + arr.length);
+					
 				}
 
 			}
@@ -65,7 +64,6 @@ public class Main03 {
 		}
 		
 
-		
 		
 		
 		

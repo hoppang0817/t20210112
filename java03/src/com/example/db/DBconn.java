@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import com.example.vo.CustomerVO;
 
@@ -106,54 +107,33 @@ public class DBconn {
 	}
 	//고객목록
 	//int[]a ={1,2,3,4....}
-	public CustomerVO[] selectCustomer() {
-		
+	public ArrayList<CustomerVO> selectCustomer() {
 		try {
-			//SELECT 수행
-			//SELECT * FROM 테이블명
 			String sql = "SELECT * FROM CUSTOMERTBL";
-			Statement pstmt = conn.createStatement(
-					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			PreparedStatement pstmt = conn.prepareStatement(sql);	
+			ResultSet rs = pstmt.executeQuery();    // SELECT
+
+			//고객 정보를 리스트로 보관할 변수
+			ArrayList<CustomerVO> customerList = new ArrayList<CustomerVO>();
 			
-			//int result = pstmt.executeUpdate(); //INSERT, UPDATE,DELETE
-			ResultSet rs = pstmt.executeQuery(sql);  //SELECT  rs안에 전체 변수가 들어있음
-			 
-			rs.last();
-			int rows = rs.getRow();
-			rs.beforeFirst();
-			
-			
-			//목록의 개수 라인수
-			System.out.println("ROWS:"+rows);
-			
-			//개수 만큼 배열생성
-			CustomerVO[] arr = new CustomerVO[ rows ];
-			int cnt =0;
-			while(rs.next()) {//한줄씩 가져옴.
-				System.out.println(rs.getString("CST_ID"));
-				System.out.println(rs.getString("CST_NAME"));
-				System.out.println(rs.getInt("CST_AGE"));
-				System.out.println(rs.getString("CST_DATE"));
-				System.out.println();
-				
-				//rs에 가져온 값을 Customervo객체로 만듬
-				CustomerVO obj = new CustomerVO(
-						rs.getString("CST_ID"),
-						rs.getString("CST_NAME"),
-						rs.getInt("CST_AGE"),
-						rs.getString("CST_DATE")
-						);
-				
-				//배열에 추가함
-				arr[cnt] = obj;
-				cnt++;
+			while(rs.next()) { 
+				 //rs에 가져온 값을 customervo객체로 만듬
+				 CustomerVO obj = new CustomerVO(rs.getString("CST_ID"), 
+						 rs.getString("CST_NAME"),
+						 rs.getInt("CST_AGE"), 
+						 rs.getString("CST_DATE"));
+
+				 //배열에 추가함
+				 customerList.add(obj);
 			}
-			return arr;
+			return customerList;
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
+	
+	
 	
 }
