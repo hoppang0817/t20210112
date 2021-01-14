@@ -16,7 +16,7 @@ public class Main04 {
 	
 		
 		
-		/*
+		/*상속
 		MyFrame frame = new MyFrame();
 		frame.setTitle("제목");
 		
@@ -55,7 +55,7 @@ public class Main04 {
 		frame.setVisible(true);
 		*/
 		
-		/*
+		/*ArrayList
 		//학생 생성 학번이 1001이고 이름이Lee
 		//학생1
 		//생성자2사용
@@ -98,7 +98,7 @@ public class Main04 {
 	    studentYun.addSubject("math", 90);
 	    studentYun.addSubject("com", 75);
 	    
-	    //강의실생성
+	    //강의실 생성
 	    ClassList classA = new ClassList("508호",25);
 		
 	    //강의실에 학생추가
@@ -107,7 +107,7 @@ public class Main04 {
 	    classA.addStudent(studentYun);
 	    
 	    
-	    //
+	    //강의실 정보출력
 	    ClassPrint obj = new ClassPrint(classA);
 		obj.printClass();
 		*/
