@@ -1,4 +1,4 @@
-package com.example;
+package com.example.vo;
 
 public class Customer {
 	private int customerID =0;               //고객번호

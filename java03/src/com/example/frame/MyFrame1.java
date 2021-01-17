@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import com.example.Customer;
 import com.example.StoreList;
 import com.example.StoreMap;
+import com.example.vo.Customer;
 
 public class MyFrame1 extends JFrame implements ActionListener {
 	// JButton 제작시에 이벤트 처리를 위한 인터페이스를 사용해서 구현해놨음

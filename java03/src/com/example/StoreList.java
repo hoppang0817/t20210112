@@ -2,6 +2,8 @@ package com.example;
 
 import java.util.ArrayList;
 
+import com.example.vo.Customer;
+
 public class StoreList {
 	private String name = null;;
 	private String phone = null;
@@ -72,6 +74,7 @@ public class StoreList {
 		}
 		return 0;
 	
+		
 	}
 	//메소드 : 고객검색 (고객번호가 전달되면 고객리스트에 검색후 고객정보를 리턴)
 	public Customer searchCustomer(int customerID) {

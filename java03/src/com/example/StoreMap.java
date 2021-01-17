@@ -2,6 +2,8 @@ package com.example;
 
 import java.util.HashMap;
 
+import com.example.vo.Customer;
+
 //순차적으로 반복해서 값을 출력할땐 ArrayList
 //하나의 키로만 값을 출력할땐 Map
 

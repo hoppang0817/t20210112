@@ -1,4 +1,7 @@
-package com.example;
+package com.example.print;
+
+import com.example.StoreMap;
+import com.example.vo.Customer;
 
 public class StorePrint {
 	private StoreMap store1;

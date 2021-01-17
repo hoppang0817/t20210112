@@ -1,4 +1,6 @@
-package com.example;
+package com.example.print;
+
+import com.example.vo.BoardVO;
 
 public class BoardPrint {
 

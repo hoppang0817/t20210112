@@ -1,4 +1,8 @@
-package com.example;
+package com.example.main;
+
+import com.example.LoopEx;
+import com.example.print.BoardPrint;
+import com.example.vo.BoardVO;
 
 public class Main02 {
 

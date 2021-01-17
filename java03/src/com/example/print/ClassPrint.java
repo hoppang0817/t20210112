@@ -1,8 +1,11 @@
 // 실습 : 학생3을 추가 이름과 학번 임의로 ... 과목은 임의 4개를 추가해서 출력하기
 
-package com.example;
+package com.example.print;
 
 import java.util.ArrayList;
+
+import com.example.ClassList;
+import com.example.StudentList;
 import com.example.vo.Subject;
 
 public class ClassPrint {
