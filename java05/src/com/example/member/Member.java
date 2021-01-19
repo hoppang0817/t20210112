@@ -28,6 +28,14 @@ public class Member {
 		this.name = name;
 	}
 
+	public Member(String id, String pw, short age, String name) {
+		super();
+		this.id = id;
+		this.pw = pw;
+		this.age = age;
+		this.name = name;
+	}
+
 	public String getId() {
 		return id;
 	}

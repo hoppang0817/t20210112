@@ -30,12 +30,9 @@ public class MemberDAO {
 				//문자열배열 생성
 				String[]memberStr = {
 				rs.getString("USER_ID"),
-				rs.getString("USER_PW"),
+				rs.getString("USER_NAME"),
 				String.valueOf(rs.getInt("USER_AGE")),//String 형태로만 저장가능하기때문에 변형시켜줌
-				rs.getString("USER_TEL"),
-				rs.getString("USER_DATE"),
-				rs.getString("USER_ADDR"),
-				rs.getString("USER_NAME")
+				rs.getString("USER_TEL")
 				};
 				memberList.add(memberStr);
 			}
