@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -158,16 +159,31 @@ public class MyFrame extends JFrame implements ActionListener{
 		else if(e.getSource() == registerButton) {//회원가입 버튼을 눌렀을 경우
 			String s1 = userText.getText();
 			String s2 = userText1.getText();
-			int s3 =Integer.parseInt(userText.getText());//나이는 int임으로 int를 String으로 변경.
+			short s3 = Short.parseShort(userText2.getText());//나이는 int임으로 int를 String으로 변경.
 			String s4 =String.valueOf(passwordText.getPassword());//char[] 배열임
 			
 			//member 객체를 생성후 입력한 값을 넣으시오.
-			Member member = new Member();
-			member.setId("aa");
-			member.setPw("bb");
-			member.setName("몰라");
-			member.setAge((short) 10);
+			Member member = new Member(s1,s2,s3,null,null,null,s4);
+			MemberDAO memberDAO = new MemberDAO(conn);
 			
+			int result;
+			try {
+				result = memberDAO.insertMember(member);
+				if(result > 0) {//회원추가
+					 JOptionPane.showMessageDialog(this, "회원가입 성공", "성공", JOptionPane.INFORMATION_MESSAGE);
+				 userText1.setText("");
+				 userText2.setText("");
+				 userText.setText("");
+				 passwordText.setText("");
+				 }
+				 else {
+					 JOptionPane.showMessageDialog(this, "회원가입 실패", "실패", JOptionPane.WARNING_MESSAGE);
+				 }
+				
+			}
+			 catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 	
@@ -245,5 +261,8 @@ public class MyFrame extends JFrame implements ActionListener{
 			   panel.add(userLabel2);
 			   panel.add(userText2);
 			   panel.add(registerButton);
+			   
+			   panel.revalidate();
+			   panel.repaint();
 			}
 }
