@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +26,10 @@ import javax.swing.KeyStroke;
 import com.example.db.DBconn;
 import com.example.member.Member;
 import com.example.member.MemberDAO;
+import com.example.shop.CustomerDAOImpl;
+import com.example.shop.Item;
+import com.example.shop.ItemDAOImpl;
+import com.example.shop.OrderDAOImpl;
                     //부모 생성               인터페이스
 public class MyFrame extends JFrame implements ActionListener{
 
@@ -38,12 +43,21 @@ public class MyFrame extends JFrame implements ActionListener{
 	Connection conn = null;
 	
 	JMenuBar menuBar = null;
-	JMenu menu1 = null;
-	JMenuItem menuItem1 = null;
-	JMenuItem menuItem2 = null;
-	JMenuItem menuItem3 = null;
-	JMenuItem menuItem4 = null;
+	JMenu menu1 = null;         //회원
+	JMenuItem menuItem1 = null; //DB연결
+	JMenuItem menuItem2 = null; //로그인
+	JMenuItem menuItem3 = null; //회원가입
+	JMenuItem menuItem4 = null; //종료
 	JMenuItem menuItem5 = null;//회원목록
+	 
+	
+	
+	JMenu menu2 = null;          //물품
+	JMenuItem menuItme11 = null; //물품등록
+	JMenuItem menuItme12 = null; //물품삭제
+	JMenuItem menuItme13 = null; //물품수정
+	JMenuItem menuItme14 = null; //물품목록
+	
 	
 	JPanel panel = new JPanel();
 	ArrayList<String[]> memberList = null;//회원목록을 저장할 변수
@@ -54,7 +68,21 @@ public class MyFrame extends JFrame implements ActionListener{
 	JTextField userText2 = null;
 	JPasswordField passwordText = null;
 	JButton registerButton = null;
+	
+	
+	 
+    JTextField itemText =null;
+    JTextField itemText1=null;
+    JTextField itemText2=null;
+    JTextField itemText3=null;
+    JButton registerButton1 = null;
+	
 		
+	
+	CustomerDAOImpl customerDAO = new CustomerDAOImpl(DBconn.getConnection());
+	ItemDAOImpl itemDAO = new ItemDAOImpl(DBconn.getConnection());
+	OrderDAOImpl orderDAO = new OrderDAOImpl();
+	
 	
 	// 생성자
 	public MyFrame(String title) throws HeadlessException {
@@ -74,7 +102,6 @@ public class MyFrame extends JFrame implements ActionListener{
 	private void createMenu() {
 		menuBar = new JMenuBar();
 		menu1 = new JMenu("회원");
-		
 		
 		
 		menuItem5 = new JMenuItem("회원목록");
@@ -98,7 +125,7 @@ public class MyFrame extends JFrame implements ActionListener{
 		menuItem4.addActionListener(this);
 		
 		
-		//화면에 만들어지는 순서
+		//화면에 만들어지는 순서 *회원
 		menu1.add(menuItem1);
 		menu1.add(menuItem2);
 		menu1.add(menuItem3);
@@ -106,8 +133,33 @@ public class MyFrame extends JFrame implements ActionListener{
 		menu1.addSeparator();  //구분선---------
 		menu1.add(menuItem4);
 		
+		//-------------------------------------------------------
 		
+		menu2 = new JMenu("물품");
+		menuItme11 = new JMenuItem("물품등록");
+		menuItme11.addActionListener(this);
+
+		menuItme12 = new JMenuItem("물품삭제");
+		menuItme12.addActionListener(this);
+		
+		menuItme13 = new JMenuItem("물품수정");
+		menuItme13.addActionListener(this);
+		
+		menuItme14 = new JMenuItem("물품목록");
+		menuItme14.addActionListener(this);
+		
+		
+		//화면에 만들어지는 순서 *물품
+	    menu2.add(menuItme11);
+	    menu2.add(menuItme12);
+	    menu2.add(menuItme13);
+	    menu2.addSeparator();
+	    menu2.add(menuItme14);
+	    
+	    
+	   
 		menuBar.add(menu1);
+		menuBar.add(menu2);
 		
 		panel.setLayout(null);//좌표를 이용한 절대 위치 배치
 		//this는 Frame
@@ -184,6 +236,56 @@ public class MyFrame extends JFrame implements ActionListener{
 			 catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+		}
+		else if(e.getSource() == menuItme11) {//물품등록
+			
+			if(conn !=null) {
+				createItemJoinPanel();
+			}
+			
+		}
+		else if(e.getSource() == menuItme12) {//물품삭제
+			
+		}
+		else if(e.getSource() == menuItme13) {//물품수정
+			
+		}
+		else if(e.getSource() == menuItme14) {//물품목록
+			
+			//물품목록 받기
+			List<Item> itemList = itemDAO.selectItem();
+			
+			//패널지우기
+			panel.removeAll();
+			
+			//라벨넣기
+		    JLabel lbl = new JLabel("회원목록");
+			lbl.setBounds(4, 4, 100, 30);
+
+			// 컬럼생성 및 데이터 배열 생성
+			String[] column = { "물품번호", "물품명", "물품가격", "물품수량", "등록일" };
+			String[][] data = new String[itemList.size()][column.length];
+			
+			// List<Item> => String[][]
+			for (int i = 0; i < itemList.size(); i++) {
+				data[i][0] = String.valueOf(itemList.get(i).getItm_no());
+				data[i][1] = itemList.get(i).getItm_name();
+				data[i][2] = String.valueOf(itemList.get(i).getItm_price());
+				data[i][3] = String.valueOf(itemList.get(i).getItm_cnt());
+				data[i][4] = itemList.get(i).getItm_date();
+			}
+			// table에 데이터와 컬럼값 추가
+			JTable table = new JTable(data, column);
+			
+			// 스크롤 패널에 table추가
+			JScrollPane scroll = new JScrollPane(table);
+			scroll.setBounds(4, 34, 340, 140);
+            //패널에 스크롤패널,라벨추가
+			panel.add(lbl);
+			panel.add(scroll);
+            //패널 새로그리기
+			panel.revalidate();
+			panel.repaint();
 		}
 	}
 	
@@ -265,4 +367,56 @@ public class MyFrame extends JFrame implements ActionListener{
 			   panel.revalidate();
 			   panel.repaint();
 			}
+		
+		private void createItemJoinPanel() {
+			panel.removeAll();	
+			   
+			   JLabel lbl = new JLabel("물품등록");
+			   lbl.setBounds(4, 4, 100, 30);
+			   
+			   JLabel itemLabel = new JLabel("물품이름");
+			   itemLabel.setBounds(10, 50, 80, 25);
+			   
+			   itemText = new JTextField(20);
+			   itemText.setBounds(100, 50, 160, 25);
+			   
+			   JLabel itemLabel3 = new JLabel("물품내용");
+			   itemLabel3.setBounds(10, 80, 80, 25);
+			   
+			   itemText1 = new JPasswordField(20);
+			   itemText1.setBounds(100, 80, 160, 25);
+			   
+			   JLabel  itemLabel1 = new JLabel("물품금액");
+			   itemLabel1.setBounds(10, 110, 80, 25);
+			   
+			   itemText2 = new JTextField(20);
+			   itemText2.setBounds(100, 110, 160, 25);
+			   
+			   JLabel  itemLabel2 = new JLabel("물품수량");
+			   itemLabel2.setBounds(10, 140, 80, 25);
+			   
+			   itemText3 = new JTextField(20);
+			   itemText3.setBounds(100, 140, 160, 25);
+			   
+			   registerButton1 = new JButton("등록");
+			   registerButton1.setBounds(10, 180, 100, 30);
+			   //버튼효과를 여기로  
+			   registerButton1.addActionListener(this);
+			   
+			   panel.add(lbl);
+			   panel.add( itemLabel);
+			   panel.add( itemText);
+			   panel.add( itemLabel1);
+			   panel.add( itemText1);
+			   panel.add( itemLabel2);
+			   panel.add( itemText2);
+			   panel.add( itemLabel3);
+			   panel.add( itemText3);
+			   panel.add( registerButton1);
+			   
+			   
+			   panel.revalidate();
+			   panel.repaint();
+		}
+	
 }

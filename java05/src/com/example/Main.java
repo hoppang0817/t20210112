@@ -5,17 +5,23 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.example.db.DBconn;
+import com.example.frame.MyFrame;
 import com.example.shop.Customer;
 import com.example.shop.CustomerDAOImpl;
 import com.example.shop.Item;
 import com.example.shop.ItemDAOImpl;
+import com.example.shop.Order;
+import com.example.shop.OrderDAOImpl;
 
 public class Main {
 
 	public static void main(String[] args) {
 		// System.out.println("hello world");
-		// new MyFrame("java");
-
+		 new MyFrame("제목");
+		
+	}
+}
+		/*
 		// 스캐너사용!!!
 		// 마지막 in.close를위해 밖으로
 		Scanner in = new Scanner(System.in);
@@ -24,11 +30,13 @@ public class Main {
 			//모둔if문에 사용해야해서 반복문밖에 선언
 			CustomerDAOImpl customerDAO = new CustomerDAOImpl(DBconn.getConnection());
 			ItemDAOImpl itemDAO = new ItemDAOImpl(DBconn.getConnection());
+			OrderDAOImpl orderDAO = new OrderDAOImpl();
 			while (true) {
 				System.out.println("------------------------------------------------------");
 				System.out.println("0.종료");
 				System.out.println("1.고객등록 2.고객삭제 3.고객수정 4.고객목록");
 				System.out.println("11.물품등록 12.물품삭제 13.물품수정 14.물품목록(전체) 15.물품목록(검색어) 16.물품목록(범위)");
+				System.out.println("21.주문하기 22.주문취소 23.주문수량변경 24.주문목록(고객별)");
 				System.out.println("메뉴를 선택하시오>>>");
 				int menu = in.nextInt();
 
@@ -199,9 +207,97 @@ public class Main {
 					for (Item tmp : itemList) {
 						System.out.println(tmp.getItm_no() + "," + tmp.getItm_name() + "," + tmp.getItm_content() + ","
 								+ tmp.getItm_price() + "," + tmp.getItm_cnt() + "," + tmp.getItm_date());
+						
+                    //ex)1,5
+					//String inputDate = in.next();
+					//String[]inputArray = inputDate.split(",")
+					//	List<Item>itemList = itemDAO.selectItem(Integer.parseInt(intputArray[0]), intputArray[1]));
+					//	for(Item tmp :itemList) {
+					//		System.out.println(tmp.getItm_no()+","+tmp.getItm_name()+","+tmp.getItm_content()+","+tmp.getItm_price()
+		            //        +","+tmp.getItm_cnt()+","+tmp.getItm_date());
+					//	}
 					}
 				}
+				else if(menu == 21) {
+					System.out.println("주문수량,물품번호,고객아이디 순으로 입력하세요.");
+					String inputDate = in.next();
+					String[] inputArray = inputDate.split(",");
+					
+					Order order = new Order();
+					order.setOrd_cnt(Integer.parseInt(inputArray[0]));
+					
+					
+					Item item = new Item();
+					item.setItm_no(Long.parseLong(inputArray[1]));
+				    order.setItm_no(item);//item으로 저장해줘야함
+					
+				    
+					Customer customer = new Customer();
+					customer.setCst_id(Long.parseLong(inputArray[2]));
+					order.setCst_id(customer);
+					
+					int result = orderDAO.insertOrder(order);
+					if(result > 0) {
+						System.out.println("주문 되었습니다.");
+					}
+					else {
+						System.out.println("주문 실패했습니다.");
+					}
+						
+				}
+				else if(menu == 22) {
+					System.out.println("주문번호를 입력하세요.");
+					int inputDate = in.nextInt();
+					Order order = new Order();
+					order.setOrd_no(inputDate);
+					
+					int result = orderDAO.deleteOrder(order);
+					if(result >0) {
+						System.out.println("주문취소 되었습니다.");
+					}
+					else {
+						System.out.println("주문취소 실패하였습니다.");
+					}
+					
+				}
+				else if(menu == 23) {
+					System.out.println("주문개수,주문번호 순으로 입력하세요.");
+					String inputDate = in.next();
+					String[]inputArray = inputDate.split(",");
+					
+					Order order = new Order();
+					order.setOrd_cnt(Integer.parseInt(inputArray[0]));
+					order.setOrd_no(Integer.parseInt(inputArray[1]));
+					
+					int reusul = orderDAO.updateOrder(order);
+					if(reusul >0 ) {
+						System.out.println("주문수정 되었습니다.");
+					}
+					else {
+						System.out.println("주문수정 실패하였습니다.");
+					}
+				}
+				else if(menu == 24) {
+					System.out.println("고객아이디를 입력하세요.");
+					Long inputDate = in.nextLong();
+					Customer customer = new Customer();
+					customer.setCst_id(inputDate);
+					
+					//주문번호,주문수량,주문일자,물품명,물품가격
+					List<Order>orderList = orderDAO.selectOrder(customer);
+					for(Order tmp : orderList) {
+						System.out.println(tmp.getOrd_no());
+						System.out.println(tmp.getOrd_cnt());
+						System.out.println(tmp.getOrd_date());
+						System.out.println(tmp.getItm_no().getItm_name());
+						System.out.println(tmp.getItm_no().getItm_price());
+					}
+				}
+				else if(menu == 25) {
+					
+				}
 			}
+			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -213,7 +309,7 @@ public class Main {
 
 	}
 
-}
+}*/
 
 /*
  * //3개가 동시에 무한반복 출력 try { //인터페이스로 받아 출력 Thread obj = new Thread( new

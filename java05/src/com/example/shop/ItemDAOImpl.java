@@ -144,7 +144,7 @@ public class ItemDAOImpl extends ItemDAO {
 			//SELECT * FROM (SELECT 컬럼명들...,ROW_NUBER()OVBER(ORDER BY ITM_NO ASC) ITM_ROWS FROM 테이블명)
 			            //    + WHERE ITM_ROWS BETWEEN ? AND ?
 			String sql ="SELECT * FROM (SELECT ITM_NO, ITM_NAME, ITM_CONTENT, ITM_PRICE, ITM_CNT, ITM_DATE, "
-					                  +"ROW_NUBER() OVER(ORDER BY ITM_NO ASC)TIM_ROWS FROM ITEMTBL)WHERE ITM_ROWS BETWEEN ? AND ?";
+					                  +"ROW_NUMBER() OVER(ORDER BY ITM_NO ASC)ITM_ROWS FROM ITEMTBL)WHERE ITM_ROWS BETWEEN ? AND ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, start);
 			ps.setInt(2, end);
@@ -164,7 +164,7 @@ public class ItemDAOImpl extends ItemDAO {
 						);
 				itemList.add(item);
 			}
-		return null;
+		return itemList;
 	
 	    }catch(Exception e) {
 			e.printStackTrace();
