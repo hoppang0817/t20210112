@@ -1,24 +1,195 @@
 package com.example;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Map;
 
-import com.example.db.DBconn;
-import com.example.frame.MyFrame;
-import com.example.shop.Customer;
-import com.example.shop.CustomerDAOImpl;
-import com.example.shop.Item;
-import com.example.shop.ItemDAOImpl;
-import com.example.shop.Order;
-import com.example.shop.OrderDAOImpl;
+import com.example.frame.MyTreeFrame;
+import com.example.test1.Test02;
 
 public class Main {
 
 	public static void main(String[] args) {
-		// System.out.println("hello world");
-		 new MyFrame("제목");
+		Test02 obj = new Test02();
+		obj.stePrint();
+		obj.print();
 		
+		//25일 시험
+		
+//		자료형 : 8개
+//		문자형 : char
+//		정수형 : byte , short , int,long
+//		실수형 : float, double
+//		논리형 : boolean
+//		
+//		변수는 문자로시작하고 특수문자_
+//		
+//		int x =1;
+//		int y =0;
+//		
+//		y = x++;//y = x; x++; x의 값을 y에 넣고 x를 증가시킴
+//		y = ++x;//x++; y=x;  x를 증가시킨후 y에 넣음
+//
+//		System.out.println(x);
+//		System.out.println(y);
+//		
+//		//변수는 초기화를 해야함.!!
+//		
+//		int i = 3;
+//		while(i>0) {//3 2 1
+//			System.out.println(i);
+//			i--;
+//		}
+//		//최대값,최소값
+//		
+//		int[]a = {3,4,45,23};
+//		int b = a[0];
+//		for(int i =0; i<a.length;i++) {
+//			if(a[i]<b) {
+//				b=a[i];
+//			}
+//			System.out.println(b);
+//		}
+//		
+//		//생성자특징 : 객체 초기화시 변수를 설정, 리턴값없음,클래스명과 일치...
+//		
+//		private int a1;//접근불가
+//		public int a2;//접근가능
+//		protected int a3;//상속한 클래스까지만 접근 상속해야지만 접근수있음
+//		
+//		//추상클래스는 메소드중에 한개라도 정의만 된것이있음.객체생성이 안됨.
+//		abstract Calss A{
+//			public abstract void ()
+//		}
+//		
+//		//final 상속이 불가능한 클래
+//		final Calss B{
+//			
+//		}
+//		
+//		//일반클래스
+//		Calss C{
+//			
+//		}
+//		
+//		//예외처리
+//		try {
+//			//정상적인 코드
+//		}
+//		catch{
+//			//예외발생
+//		}
+//		finally {
+//			//모두 방문하는곳
+//		}
+//		
+//		//ArrayList랑 HashMap차이점 : key랑같이 넣는야 value만 넣는야
+//		
+//		
+//		//최상위 클래스 java.lang.object
+//		
+//		//키보드입력하는 클래
+//		Scanner in = new Scanner(System in);
+//		
+//		//자바상속 특징 : 다중상속불가, 상속횟수는 상관없음
+//		
+//		//객체지향특징 : 다형성 (파라미터 자료형이나 수가다르면 다른 메소드), 상속성extends,정보은닉,캡슐화getter/setter
+//		
+//		//DB연결
+//		
+		// System.out.println("hello world");
+		 new MyTreeFrame("A");
+		 
+		 //배열
+		 //1.개수를 반드시 설정
+		 //2.타입이 동일해야함
+		 
+		 //4개의 문자열을 보관할 수있는배열, 값은 없음
+		 String[]a = new String[4];
+		 a[0]="a";
+		 a[1]="b";
+		 a[2]="c";
+		 a[3]="d";
+		 
+		 //3개의 문자열을 보관할수있는 배열. 값이 3개존재함.
+		 String[]b = {"a","b","c"};
+		 
+		 //1차원 String 배열4개를 3번 보관할 수있는 배열
+		 String[][] c = new String[3][4];
+		 c[0]=a;
+		 c[1]=a;
+		 c[2]=a;
+		 for(int i =0;i<c.length;i++) {//3개
+			 for(int j =0; j<c[i].length;j++) {//4개
+				 System.out.print(c[i][j]+" ");
+			 }
+			 System.out.println();
+		 }
+		 //List는 동적인 배역, 개수를 설정할 필요가 없다. 타입도 같을 필요없다.
+		 //같은것으로는 Vector
+		 
+		 List< String >list = new ArrayList< String >();
+		 //String[]a = new String[N개];
+		 
+		 list.add("a");
+		 list.add("b");
+		 list.add("c");
+		 
+		 //위치정보 필요한경우(인덱스)
+		 for(int i=0;i<list.size();i++) {
+			 System.out.print(list.get(0));
+		 }
+		 System.out.println();
+		 
+		 //위치정보 필요없는경우
+		 for(String tmp: list) {
+			 System.out.print(tmp);
+		 }
+		 
+		 System.out.println();
+		 
+		 List< String[] >list1 = new ArrayList< String[] >();
+		 //String[][] c = new String[N개][4];
+		 
+		 String []a1 = {"A","B","C"};
+		 list1.add(a1);
+		 list1.add(new String[] {"a","b","c"});
+		 
+		 
+		 for(int i = 0; i<list1.size();i++) {//2개
+			 
+			 String[] tmp = list1.get(i);
+			 for(int j = 0; j<tmp.length;j++) {//3개
+				 System.out.println(tmp[j]);
+			 }
+		 }
+		 
+		List<List< String[] >> list2 = new ArrayList<List< String[] >>();
+		
+		//map은 key와 value값을 가짐. 순차적이지 않음. 키는 중복될수없음.
+		Map<String,String[]> map = new HashMap<String,String[]>();
+		
+		//추가하기
+		//add가아닌 put을 사용함
+		map.put("A1", new String[] {"a","b","c"});
+		map.put("A2", new String[] {"d","e","f"});
+		
+		//가져오기
+		String[]tmp = map.get("A1");
+		String[]tmp1 = map.get("A2");
+		
+		//           여긴 어떤형태라도 들어볼수있음
+		Map<String, List< String[] >> map1 = new HashMap<String,List< String[] >>();
+		map1.put("K1",list1);
+		
+		
+		//key를 가지고 불러냄.
+		List< String[] > list3 = map1.get("K1");
+		
+		
+	
+	
 	}
 }
 		/*

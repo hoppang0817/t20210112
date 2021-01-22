@@ -133,7 +133,7 @@ public class MyFrame extends JFrame implements ActionListener{
 		menu1.addSeparator();  //구분선---------
 		menu1.add(menuItem4);
 		
-		//-------------------------------------------------------
+	//-------------------------------------------------------
 		
 		menu2 = new JMenu("물품");
 		menuItme11 = new JMenuItem("물품등록");
