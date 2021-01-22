@@ -238,10 +238,15 @@ public class MyFrame extends JFrame implements ActionListener{
 			}
 		}
 		else if(e.getSource() == menuItme11) {//물품등록
+			createItemJoinPanel();
+		}
+		else if(e.getSource() == registerButton1) {
+			String s1 = itemText.getText();
+			String s2 = itemText1.getText();
+			Long s3 = Long.parseLong(itemText2.getText());
+			int s4 = Integer.parseInt(itemText3.getText());
 			
-			if(conn !=null) {
-				createItemJoinPanel();
-			}
+			Item item = new Item(0,s1,s2,s3,s4,null);
 			
 		}
 		else if(e.getSource() == menuItme12) {//물품삭제
@@ -383,7 +388,7 @@ public class MyFrame extends JFrame implements ActionListener{
 			   JLabel itemLabel3 = new JLabel("물품내용");
 			   itemLabel3.setBounds(10, 80, 80, 25);
 			   
-			   itemText1 = new JPasswordField(20);
+			   itemText1 = new JTextField(20);
 			   itemText1.setBounds(100, 80, 160, 25);
 			   
 			   JLabel  itemLabel1 = new JLabel("물품금액");
