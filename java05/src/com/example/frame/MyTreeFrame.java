@@ -90,6 +90,7 @@ public class MyTreeFrame extends JFrame{
 		bbb.add(bbb2);
 		
 		
+		
 		root.add(aaa);
 		root.add(bbb);
 		
