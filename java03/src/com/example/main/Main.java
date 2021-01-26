@@ -1,6 +1,10 @@
 package com.example.main;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
+import com.example.StudentList01;
 
 //주석문
 
@@ -156,6 +160,19 @@ public class Main {
 		System.out.println("a 변수의 값은 " + a);
 		System.out.println("b 변수의 값은 " + b);
 */
+		Scanner in = new Scanner(System.in);
+		Map<String,StudentList01>map = new HashMap<String,StudentList01>();
+		while(true) {
+			System.out.println("1.학생등록");
+			System.out.println("2.과목등록");
+			System.out.println("0.종료");
+			int menu = in.nextInt();
+			if(menu == 0) {
+				break;
+			}
+			
+			
+		}
 	}
 
 }
