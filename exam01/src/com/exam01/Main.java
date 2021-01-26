@@ -56,7 +56,7 @@ public class Main {
 				
 			}
 			if(menu == 3) {
-				System.out.println("�й��� �Է��ϼ���");
+				System.out.println("학번을 입력하세요");
 				String ID = in.next();
 				Student tmp = map.get(ID);
 				System.out.println(tmp.getStudentID()+","+tmp.getName()+","+tmp.getAverage());

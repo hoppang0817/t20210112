@@ -107,14 +107,14 @@ public class Student implements StudentManager{
 
 	@Override
 	public float getAverage() {
-		float avg = 0;
+		
 		int sum =0;
 		for(Subject tmp : list) {
-			
-			avg = (sum+=tmp.getscore())/list.size();
+
+			sum +=tmp.getscore();
 		}
 		
-		return avg ;
+		return  (float)sum/(float)list.size();
 	}
 	
 	
