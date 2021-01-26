@@ -11,35 +11,35 @@ public class Main {
 		Map<String,Student>map = new HashMap<String,Student>();
 		
 		while(true) {
-			System.out.println("1.ÇĞ»ıÃß°¡");
-			System.out.println("2.°ú¸ñÃß°¡");
-			System.out.println("3.ÇĞ»ıÆò±ÕÁ¡¼ö");
-			System.out.println("4.ÀüÃ¼ÇĞ»ı¸ñ·Ï");
-			System.out.println("5.Á¾·á");
+			System.out.println("1.í•™ìƒì¶”ê°€");
+			System.out.println("2.ê³¼ëª©ì¶”ê°€");
+			System.out.println("3.í•™ìƒí‰ê· ì ìˆ˜");
+			System.out.println("4.ì „ì²´í•™ìƒëª©ë¡");
+			System.out.println("5.ì¢…ë£Œ");
 			int menu = in.nextInt();
 			if(menu == 5) {
 			
-				System.out.println("Á¾·á");
+				System.out.println("ì¢…ë£Œ");
 				break;
 			}
 			if(menu == 1 ) {
 				try {
-					System.out.println("ÇĞ¹ø, ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä.");
+					System.out.println("í•™ë²ˆ,ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”.");
 					String ID = in.next();
 					String name = in.next();
 					Student student = new Student(ID,name);
 					map.put(student.getStudentID(), student);
-					System.out.println("¼º°ø");
+					System.out.println("ì„±ê³µ");
 				}catch(Exception e) {
 					e.printStackTrace();
-					System.out.println("½ÇÆĞ");
+					System.out.println("ì‹¤íŒ¨");
 					
 				}
 				
 			}
 			if(menu == 2) {
 				try {
-					System.out.println("ÇĞ¹ø,°ú¸ñÄÚµå,°ú¸ñ¸í,Á¡¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+					System.out.println("í•™ë²ˆ,ê³¼ëª©ì½”ë“œ,ê³¼ëª©ëª…,ì ìˆ˜ë¥¼ ì…ë ¥í•˜ì„¸ìš”");
 					String ID = in.next();
 					String code = in.next();
 					String name = in.next();
@@ -47,16 +47,16 @@ public class Main {
 					
 					Student obj = map.get(ID);
 					obj.addSubject(code, name, score);
-					System.out.println("¼º°ø");
+					System.out.println("ì„±ê³µ");
 				}
 				catch(Exception e) {
 					e.printStackTrace();
-					System.out.println("½ÇÆĞ");
+					System.out.println("ì‹¤íŒ¨");
 				}
 				
 			}
 			if(menu == 3) {
-				System.out.println("ÇĞ¹øÀ» ÀÔ·ÂÇÏ¼¼¿ä");
+				System.out.println("ï¿½Ğ¹ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½");
 				String ID = in.next();
 				Student tmp = map.get(ID);
 				System.out.println(tmp.getStudentID()+","+tmp.getName()+","+tmp.getAverage());
