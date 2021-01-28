@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="StudentMapper">
+
+	<insert id="insertStudent" parameterType="Student">
+		INSERT INTO
+		STUDENT(STUDENT_ID,STUDENT_NAME,STUDENT_GRADE,STUDENT_PHONE,STUDENT_MAJOR,STUDENT_DATE)
+		VALUES(#{student_id}, #{student_name}, #{student_grade},
+		#{student_phone}, #{student_major},CURRENT_DATE)
+	</insert>
+
+	<delete id="deleteStudent" parameterType="com.project.Student">
+		DELETE FROM STUDENT WHERE STUDENT_ID =#{student_id}
+	</delete>
+
+	<update id="updateStudent" parameterType="com.project.Student">
+		UPDATE FROM STUDENT SET STUDENT_NAME
+		=#{student_name},STUDENT_GRADE=#{student_grade},
+		STUDENT_PHONE=#{student_phone},STUDENT_MAJOR =#{student_major} WHERE
+		STUDENT_ID=#{student_id}
+	</update>
+
+	<select id="selectStudentList" resultType="com.project.Student">
+		SELECT * FROM STUDNE
+	</select>
+
+	<select id="selectStudentList1" parameterType="com.project.Student"
+		resultType="com.project.Student">
+		SELECT * FROM STUDENT WHERE STUDENT_MAJOR LIKE '%' || #{student_major} || '%' ORDER
+		BY STUDENT_GRADE ASC
+	</select>
+
+	<select id="selectStudentOne"
+		parameterType="com.project.Student" resultType="com.project.Student">
+		SELECT * FROM STUDENT WHERE STUDENT_ID =#{student_id}
+	</select>
+</mapper>

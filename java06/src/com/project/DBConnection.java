@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DBConnection {
-	//객체를 1번만 ,접속은 1번만 수행
 	
 	public static Connection getConnection(){
 		try {

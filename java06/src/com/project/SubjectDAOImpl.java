@@ -14,7 +14,7 @@ public class SubjectDAOImpl implements SubjectDAO{
 		this.conn = conn;
 	}
 	
-
+//throws Exception : 사용하는곳에서 예외처리하겠다.
 	@Override
 	public int insertSubject(Subject subject) throws Exception {
 		String sql = "INSERT INTO SUBJECT (SUBJECT_CODE, SUBJECT_NAME,SUBJECT_CLASS,SUBJECT_PROFESSOR, SUBJECT_TIME,SUBJECT_DATE)"
@@ -23,8 +23,8 @@ public class SubjectDAOImpl implements SubjectDAO{
 		ps.setString(1, subject.getSubject_code());
 		ps.setString(2, subject.getSubject_name());
 		ps.setString(3, subject.getSubject_class());
-		ps.setString(4, subject.getProfessor());
-		ps.setString(5, subject.getTime());
+		ps.setString(4, subject.getsubject_professor());
+		ps.setString(5, subject.getsubject_time());
 		
 		int result = ps.executeUpdate();
 		conn.commit();
@@ -49,8 +49,8 @@ public class SubjectDAOImpl implements SubjectDAO{
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, subject.getSubject_name());
 		ps.setString(2, subject.getSubject_class());
-		ps.setString(3, subject.getProfessor());
-		ps.setString(4, subject.getTime());
+		ps.setString(3, subject.getsubject_professor());
+		ps.setString(4, subject.getsubject_time());
 		ps.setString(5, subject.getSubject_code());
 		
 		int result = ps.executeUpdate();
@@ -64,8 +64,9 @@ public class SubjectDAOImpl implements SubjectDAO{
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		
-		List<Subject> subjectList = new ArrayList<Subject>();
-		while(rs.next()) {
+		List<Subject> subjectList = new ArrayList<Subject>();//전체 목록을 보관할 변수
+		while(rs.next()) {//한줄씩가져옴
+			//subject 객체 생성
 			Subject subject = new Subject(
 					rs.getString("SUBJECT_CODE"),
 					rs.getString("SUBJECT_NAME"),
@@ -74,6 +75,7 @@ public class SubjectDAOImpl implements SubjectDAO{
 					rs.getString("SUBJECT_TIME"),
 					rs.getString("SUBJECT_DATE")
 					);
+			//리스트 변수에 추가
 					subjectList.add(subject);
 			
 		}
@@ -82,9 +84,9 @@ public class SubjectDAOImpl implements SubjectDAO{
 
 	@Override
 	public List<Subject> selectSubjectList(Subject subject) throws Exception {
-		String sql = "SELECT * FROM SUBJECT WHERE SUBJECT_CLASS =? ";
+		String sql = "SELECT * FROM SUBJECT WHERE SUBJECT_NAME LIKE '%'|| ? ||'%'";
 		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setString(1, subject.getSubject_class());
+	    ps.setString(1, subject.getSubject_name());
 		ResultSet rs = ps.executeQuery();
 		
 		List<Subject> list = new ArrayList<Subject>();
@@ -111,8 +113,20 @@ public class SubjectDAOImpl implements SubjectDAO{
 		ps.setString(1, subject.getSubject_code());
 		ResultSet rs = ps.executeQuery();
 		
+		if(rs.next()) {
+			Subject obj = new Subject(
+					rs.getString("SUBJECT_CODE"),
+					rs.getString("SUBJECT_NAME"),
+					rs.getString("SUBJECT_CLASS"),
+					rs.getString("SUBJECT_PROFESSOR"),
+					rs.getString("SUBJECT_TIME"),
+					rs.getString("SUBJECT_DATE")
+					);
+			return obj;
+			
+		}
 		
-		return (Subject) rs;
+		return null;//해당항목 없음
 	}
 
 }

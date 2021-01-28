@@ -5,9 +5,9 @@ public class Subject {
 	private String subject_code = null;
 	private String subject_name = null;
 	private String subject_class = null;
-	private String professor = null;
-	private String time = null;
-	private String date = null;
+	private String subject_professor = null;
+	private String subject_time = null;
+	private String subject_date = null;
 	
 	
 	public Subject() {
@@ -15,14 +15,14 @@ public class Subject {
 	}
 
 
-	public Subject(String subject_code, String subject_name, String subject_class, String professor, String time, String date) {
+	public Subject(String subject_code, String subject_name, String subject_class, String subject_professor, String subject_time, String subject_date) {
 		super();
 		this.subject_code = subject_code;
 		this.subject_name = subject_name;
 		this.subject_class = subject_class;
-		this.professor = professor;
-		this.time = time;
-		this.date = date;
+		this.subject_professor = subject_professor;
+		this.subject_time = subject_time;
+		this.subject_date = subject_date;
 	}
 
 
@@ -46,33 +46,33 @@ public class Subject {
 	}
 
 
-	public String getProfessor() {
-		return professor;
+	public String getsubject_professor() {
+		return subject_professor;
 	}
 
 
-	public void setProfessor(String professor) {
-		this.professor = professor;
+	public void setsubject_professor(String subject_professor) {
+		this.subject_professor = subject_professor;
 	}
 
 
-	public String getTime() {
-		return time;
+	public String getsubject_time() {
+		return subject_time;
 	}
 
 
-	public void setTime(String time) {
-		this.time = time;
+	public void setsubject_time(String subject_time) {
+		this.subject_time = subject_time;
 	}
 
 
-	public String getDate() {
-		return date;
+	public String getsubject_date() {
+		return subject_date;
 	}
 
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setsubject_date(String subject_date) {
+		this.subject_date = subject_date;
 	}
 
 	
@@ -88,9 +88,11 @@ public class Subject {
 
 	@Override
 	public String toString() {
-		return "Subject [subject_code=" + subject_code + ", subject_name=" + subject_name + ", professor=" + professor + ", time="
-				+ time + ", date=" + date + "]";
+		return "Subject [subject_code=" + subject_code + ", subject_name=" + subject_name + ", subject_class="
+				+ subject_class + ", subject_professor=" + subject_professor + ", subject_time=" + subject_time + ", subject_date=" + subject_date + "]";
 	}
+
+
 	
 	
 

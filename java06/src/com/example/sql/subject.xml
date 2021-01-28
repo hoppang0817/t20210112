@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 여기에 SQL작성 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+public class SubjectMapper{
+   public static Subject selectSubject(){   } //과목목록
+   
+ 
+   public static void insertSubject(Subject subject){ }
+   
+   
+    -->
+
+<mapper namespace="SubjectMapper">
+ 
+ 	
+ 	<insert id ="insertSubject" parameterType ="com.project.Subject">
+ 	   INSERT INTO SUBJECT(SUBJECT_CODE, SUBJECT_NAME,SUBJECT_CLASS,SUBJECT_PROFESSOR, SUBJECT_TIME,SUBJECT_DATE)
+				            VALUES(#{subject_code}, #{subject_name}, #{subject_class}, #{subject_professor}, #{subject_time},CURRENT_DATE)
+ 	</insert> 
+ 	
+ 	<update id ="updateSubject" parameterType ="com.project.Subject">
+ 	   UPDATE SUBJECT SET SUBJECT_NAME =#{subject_name},SUBJECT_CLASS =#{subject_class},SUBJECT_PROFESSOR =#{subject_professor},SUBJECT_TIME =#{subject_time}
+			     	WHERE SUBJECT_CODE =#{subject_code}
+ 	</update>
+ 	
+ 	<delete id ="deleteSubject" parameterType ="com.project.Subject">
+ 	   DELETE FROM SUBJECT WHERE SUBJECT_CODE=#{subject_code}
+ 	</delete>
+ 	
+ 	
+ 	<select id="selectSubject" resultType="com.project.Subject">
+  		SELECT * FROM SUBJECT
+ 	</select>
+ 	
+ 	<select id ="selectSubjectOne" parameterType ="com.project.Subject"  resultType ="com.project.Subject">
+ 	  SELECT * FROM SUBJECT WHERE SUBJECT_CODE =#{subject_code}
+ 	</select>
+ 	
+ 	<select id ="selectSubjectList" parameterType="com.project.Subject" resultType="com.project.Subject">
+ 	 SELECT * FROM SUBJECT WHERE SUBJECT_NAME LIKE '%' || #{subject_name} ||'%' 	
+ 	 </select>
+ 	
+</mapper>

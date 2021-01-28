@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 파일명 : mybatisconfig.xml -->
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+ <typeAliases >
+    <typeAlias type="com.project.Student" alias ="Student"/>
+ </typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<!-- 
+				<property name="driver" value="org.mariadb.jdbc.Driver" /> 
+				<property name="url" value="jdbc:mysql://서버주소:포트번호/디비명" /> 
+				<property name="username" value="아이디" /> 
+				<property name="password" value="암호" /> 
+				-->
+				<property name="driver"	value="oracle.jdbc.driver.OracleDriver" />
+				<property name="url" value="jdbc:oracle:thin:@1.234.5.158:11521:xe" />
+				<property name="username" value="id13" />
+				<property name="password" value="pw13" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="com/example/sql/subject.xml" />
+		<mapper resource="com/example/sql/student.xml"/>
+	</mappers>
+</configuration>

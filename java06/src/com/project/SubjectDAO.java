@@ -10,6 +10,6 @@ public interface SubjectDAO {
 	public int deleteSubject(Subject subject)throws Exception;
 	public int updateSubject(Subject subject)throws Exception;
 	public List<Subject> selectSubject()throws Exception;
-	public List<Subject> selectSubjectList(Subject subject)throws Exception;//ÀüÃ¼Á¶È¸ Á¶°Ç Æ÷ÇÔ
-	public Subject selectSubjectOne(Subject subject)throws Exception;//±³°ú¸ñ 1°³Á¶È¸
+	public List<Subject> selectSubjectList(Subject subject)throws Exception;//ì „ì²´ê²€ìƒ‰ ì¡°ê±´ìˆìŒ
+	public Subject selectSubjectOne(Subject subject)throws Exception;//1ê°œ ê³¼ëª©ê²€ìƒ‰
 }

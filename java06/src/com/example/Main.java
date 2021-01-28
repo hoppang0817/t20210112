@@ -1,38 +1,95 @@
 package com.example;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.sql.Connection;
+import java.util.List;
 
-import com.example.vo.BookStore;
-import com.example.vo.Person;
-import com.example.vo.Student;
+import com.project.DBConnection;
+import com.project.Subject;
+import com.project.SubjectDAOImpl;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
+		
+		try {
+		//DBì—°ê²° ê°ì²´
+		Connection conn = DBConnection.getConnection();
+		//DBì—°ê²°ì•ˆí• ì‹œ ì˜¤ë¥˜ 
+		SubjectDAOImpl SubjectDAO = new SubjectDAOImpl(conn);
+		
+
+		//ì¶”ê°€
+		Subject s1 = new Subject("10007","SQL","A-2","í™ê¸¸ë™","09:30",null);
+	    int result = SubjectDAO.insertSubject(s1);
+		//System.out.println(result);
+		if(result > 0) {
+			System.out.println("ì„±ê³µ");
+		}else {
+			System.out.println("ì‹¤íŒ¨");
+		}
+		
+		//1ê°œ ì¡°íšŒí•˜ê¸°
+		Subject s2 = new Subject();
+		s2.setSubject_code("10003");
+		Subject result1 = SubjectDAO.selectSubjectOne(s2);
+		
+		if(result1 != null) {
+			System.out.println(result1.toString());
+		}else {
+			System.out.println("ì°¾ëŠ”ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.");
+		}
+		
+		System.out.println("-------------------------------------");
+		
+		//ì „ì²´ì¡°íšŒ
+        List<Subject>subjectList = SubjectDAO.selectSubject();
+		for(Subject tmp : subjectList) {
+			System.out.println(tmp.toString());
+		}
+		
+		System.out.println("---------------------------------------");
+		
+		Subject s3 = new Subject();
+		s3.setSubject_name("ìë°”");
+		List<Subject> list = SubjectDAO.selectSubjectList(s3);
+		for(Subject tmp : list) {
+			System.out.println(tmp.toString());
+		}
+		
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println();
+		
+	
+		
+		
+		
+		
+	/*	Scanner in = new Scanner(System.in);
 		Map<String, BookStore>map = new HashMap<String,BookStore>();
 		
 		while(true) {
-			System.out.println("1.¼­Á¡µî·Ï");
-			System.out.println("2.Ã¥µî·Ï");
-			System.out.println("3.¼­Á¡¸ñ·Ï");
-			System.out.println("4.Ã¥¸ñ·Ï");
-			System.out.println("0.Á¾·á");
+			System.out.println("1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+			System.out.println("2.Ã¥ï¿½ï¿½ï¿½");
+			System.out.println("3.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+			System.out.println("4.Ã¥ï¿½ï¿½ï¿½");
+			System.out.println("0.ï¿½ï¿½ï¿½ï¿½");
 			int menu = in.nextInt();
 			if(menu == 0) {
 				break;
 			}
 			if(menu == 1) {
-				System.out.println("¼­Á¡¸í,¿¬¶ôÃ³¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
 				String name =in.next();
 				String phone = in.next();
 				BookStore bookStore1 = new BookStore(name,phone);
 				map.put(bookStore1.getPhone(), bookStore1);
 			}
 			if(menu == 2) {
-				System.out.println("¼­Á¡¿¬¶ôÃ³,Á¦¸ñ,°¡°İ,ÀúÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³,ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
 				String tel = in.next();
 				String title = in.next();
 				int price = in.nextInt();
@@ -49,7 +106,7 @@ public class Main {
 				}
 			}
 			if(menu == 4) {
-				System.out.println("¼­Á¡¿¬¶ôÃ³(¼­Á¡ÀÇ ±âº»Å°)À» ÀÔ·ÂÇÏ¼¼¿ä");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å°)ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½");
 				String tel = in.next();
 				BookStore tmp1 = map.get(tel);
 				tmp1.printBooks();
@@ -58,11 +115,11 @@ public class Main {
 			}
 		}
 		
-		Student a = new Student("È«±æµ¿",12,"ÄÄ°ø");
+		Student a = new Student("È«ï¿½æµ¿",12,"ï¿½Ä°ï¿½");
 	    a.show();
-	    Person b =new Student("È«±æµ¿",12,"ÄÄ°ø");
+	    Person b =new Student("È«ï¿½æµ¿",12,"ï¿½Ä°ï¿½");
 	    b.show();
-		
+		*/
 	
 	}
 
