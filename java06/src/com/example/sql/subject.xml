@@ -15,6 +15,29 @@ public class SubjectMapper{
 <mapper namespace="SubjectMapper">
  
  	
+ <!-- DB에 컬럼명과 클래스생성때 컬럼명이 다른경우 밑에 처럼 해줘야함 -->
+ <!-- <id property="클래스에서 사용한 변수명 "column="DB에서 사용한 컬럼명"/> -->	
+ <!-- <resultMap type="com.project.Subject" id="mymap1">
+ 	<id property="subject_code" column="SUBJECT_CODE"/>
+ 	<id property="" column=""/>
+ 	</resultMap>
+ 	<select id="selectSubject" resultType="mymap1">
+  		SELECT * FROM SUBJECT
+ 	</select>-->
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	<select id="selectSubject" resultType="com.project.Subject">
+  		SELECT * FROM SUBJECT
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
  	<insert id ="insertSubject" parameterType ="com.project.Subject">
  	   INSERT INTO SUBJECT(SUBJECT_CODE, SUBJECT_NAME,SUBJECT_CLASS,SUBJECT_PROFESSOR, SUBJECT_TIME,SUBJECT_DATE)
 				            VALUES(#{subject_code}, #{subject_name}, #{subject_class}, #{subject_professor}, #{subject_time},CURRENT_DATE)
@@ -30,9 +53,7 @@ public class SubjectMapper{
  	</delete>
  	
  	
- 	<select id="selectSubject" resultType="com.project.Subject">
-  		SELECT * FROM SUBJECT
- 	</select>
+ 	
  	
  	<select id ="selectSubjectOne" parameterType ="com.project.Subject"  resultType ="com.project.Subject">
  	  SELECT * FROM SUBJECT WHERE SUBJECT_CODE =#{subject_code}

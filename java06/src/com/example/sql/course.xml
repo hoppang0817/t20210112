@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CourseMapper">
+
+	<insert id="insertCourse" parameterType="Course">
+		INSERT INTO COURSE (CODE,SCORE,REGDATE,SUBJECT_CODE,STUDENT_ID)
+		VALUES(SEQ_COURSE_CODE.NEXTVAL,#{score},CURRENT_DATE,#{subject_code.subject_code},#{student_id.student_id})
+	</insert>
+
+	<update id="updateCourse" parameterType="com.project.Course">
+		UPDATE COURSE SET
+		SCORE=#{score},SUBJECT_CODE=#{subject_code.subject_code},STUDENT_ID=#{student_id.student_id}
+		WHERE CODE =#{code}
+	</update>
+
+	<delete id="deleteCourse" parameterType="com.project.Course">
+		DELETE FROM COURSE WHERE CODE =#{code}
+	</delete>
+
+
+
+ <!-- DB에 컬럼명과 클래스생성때 컬럼명이 다른경우 밑에 처럼 재배치해줘야함 -->
+ <!-- <id property="클래스에서 사용한 변수명 " column="DB에서 사용한 컬럼명"/> -->	
+	<!-- DB컬럼명과 클래스변수명이 다를때 
+	타입이 다른클래스일때(밑에처럼) 
+	이미지 파일을 넣을때 -->
+
+	<resultMap type="com.project.Course" id="resultMapCourse">
+		<result property="code" column="CODE" />
+		<result property="score" column="SCORE" />
+		<result property="regdate" column="REGDATE" />
+		<association property="student_id" javaType="com.project.Student">
+			<result property="student_id" column="STUDENT_ID" />
+			<result property="student_name" column="STUDENT_NAME" />
+			<result property="student_grade" column="STUDENT_GRADE" />
+		</association>
+		<association property="subject_code" javaType="com.project.Subject">
+			<result property="subject_code" column="SUBJECT_CODE" />
+			<result property="subject_name" column="SUBJECT_NAME" />
+			<result property="subject_class" column="SUBJECT_CLASS" />
+			<result property="subject_professor" column="SUBJECT_PROFESSOR" />
+		</association>
+	</resultMap>
+	<select id="selectCourseListe" resultMap="resultMapCourse">
+		SELECT
+		   TABLE1.CODE,TABLE1.SCORE, TABLE1.REGDATE,TABLE1.STUDENT_ID,TABLE1.STUDENT_NAME,TABLE1.STUDENT_GRADE,
+		   SUBJECT.SUBJECT_CODE, SUBJECT.SUBJECT_NAME, SUBJECT.SUBJECT_CLASS,SUBJECT.SUBJECT_PROFESSOR
+		FROM(
+		     SELECT
+		          COURSE.CODE,COURSE.SCORE,COURSE.REGDATE, COURSE.SUBJECT_CODE,
+		          STUDENT.STUDENT_ID,STUDENT.STUDENT_NAME,STUDENT.STUDENT_GRADE
+		     FROM
+                  COURSE,STUDENT
+		     WHERE
+		         COURSE.STUDENT_ID = STUDENT.STUDENT_ID
+		     )TABLE1, SUBJECT
+		WHERE
+		    TABLE1.SUBJECT_CODE = SUBJECT.SUBJECT_CODE
+
+	</select>
+	<resultMap type="com.project.Course" id="MapCourse">
+	        <result property="code" column="CODE"/>
+	        <result property="score" column="SCORE"/>
+	        <result property="regdate" column="REGDATE"/>
+	 <association property="student_id" javaType="com.project.Student">
+	        <result property="student_id" column="STUDENT_ID" />
+			<result property="student_name" column="STUDENT_NAME" />
+			<result property="student_grade" column="STUDENT_GRADE" />
+	 </association>
+	 <association property="subject_code" javaType="com.project.Subject">
+	        <result property="subject_code" column="SUBJECT_CODE" />
+			<result property="subject_name" column="SUBJECT_NAME" />
+			<result property="subject_class" column="SUBJECT_CLASS" />
+			<result property="subject_professor" column="SUBJECT_PROFESSOR" />
+	 </association>
+	</resultMap>
+	<select id="selectCourseListeWhere" parameterType="com.project.Course" resultMap="MapCourse">
+	
+	SELECT * FROM 
+				     (SELECT
+				        TABLE1.CODE, TABLE1.SCORE, TABLE1.REGDATE, TABLE1.STUDENT_ID,TABLE1.STUDENT_NAME,TABLE1.STUDENT_GRADE,
+				       SUBJECT.SUBJECT_CODE, SUBJECT.SUBJECT_NAME, SUBJECT.SUBJECT_CLASS, SUBJECT.SUBJECT_PROFESSOR
+				      FROM (
+				         SELECT
+				         COURSE.CODE,COURSE.SCORE, COURSE.REGDATE, COURSE.SUBJECT_CODE, 
+				         STUDENT.STUDENT_ID, STUDENT.STUDENT_NAME,STUDENT.STUDENT_GRADE 
+				     FROM
+				        COURSE,STUDENT WHERE COURSE.STUDENT_ID = STUDENT.STUDENT_ID)TABLE1, SUBJECT 
+				     WHERE TABLE1.SUBJECT_CODE = SUBJECT.SUBJECT_CODE)WHERE STUDENT_ID =#{student_id.student_id} ORDER BY SCORE DESC
+	
+	
+	</select>
+
+	<resultMap type="com.project.Course" id="CourseMap">
+		<result property="code" column="CODE" />
+		<result property="score" column="SCORE" />
+		<result property="regdate" column="REGDATE" />
+		<association property="student_id" javaType="com.project.Student">
+			<result property="student_id" column="STUDENT_ID" />
+			<result property="student_name" column="STUDENT_NAME" />
+			<result property="student_grade" column="STUDENT_GRADE" />
+		</association>
+		<association property="subject_code" javaType="com.project.Subject">
+			<result property="subject_code" column="SUBJECT_CODE" />
+			<result property="subject_name" column="SUBJECT_NAME" />
+			<result property="subject_class" column="SUBJECT_CLASS" />
+			<result property="subject_professor" column="SUBJECT_PROFESSOR" />
+		</association>
+	</resultMap>
+	
+	<select id="selectCourseOne" parameterType="com.project.Course" resultMap="CourseMap">
+	
+	SELECT * FROM (
+			    SELECT 
+			        TABLE1.CODE, TABLE1.SCORE, TABLE1.REGDATE, TABLE1.STUDENT_ID,TABLE1.STUDENT_NAME,TABLE1.STUDENT_GRADE,
+			        SUBJECT.SUBJECT_CODE, SUBJECT.SUBJECT_NAME, SUBJECT.SUBJECT_CLASS, SUBJECT.SUBJECT_PROFESSOR 
+			   FROM (
+				    SELECT 
+				         COURSE.CODE,COURSE.SCORE, COURSE.REGDATE, COURSE.SUBJECT_CODE, 
+				         STUDENT.STUDENT_ID, STUDENT.STUDENT_NAME,STUDENT.STUDENT_GRADE
+				    FROM 
+				         COURSE,STUDENT WHERE COURSE.STUDENT_ID = STUDENT.STUDENT_ID)TABLE1, SUBJECT
+				    WHERE TABLE1.SUBJECT_CODE = SUBJECT.SUBJECT_CODE)
+			WHERE STUDENT_ID=#{student_id.student_id} AND SUBJECT_CODE=#{subject_code.subject_code} 
+	</select>
+	
+
+</mapper>
