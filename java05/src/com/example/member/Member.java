@@ -18,7 +18,6 @@ public class Member {
 	}
 
 	public Member(String id, String pw, short age, String tel, String date, String addr, String name) {
-		super();
 		this.id = id;
 		this.pw = pw;
 		this.age = age;

@@ -26,6 +26,7 @@ public class MyButton extends Thread{
 				n++;
 			}
 			catch(Exception e) {
+				e.printStackTrace();
 				
 			}
 		}
