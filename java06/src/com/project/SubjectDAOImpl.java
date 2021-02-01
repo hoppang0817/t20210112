@@ -60,7 +60,7 @@ public class SubjectDAOImpl implements SubjectDAO{
 
 	@Override
 	public List<Subject> selectSubject() throws Exception {
-		String sql = "SELECT * FROM SUBJECT ";
+		String sql = "SELECT * FROM SUBJECT ORDER BY SUBJECT_CODE ASC";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		

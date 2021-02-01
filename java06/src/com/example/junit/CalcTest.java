@@ -13,25 +13,25 @@ import org.junit.Test;
 
 public class CalcTest {
 	
-	//Å×½ºÆ®ÇÒ Å¬·¡½º¸í
+	//ï¿½×½ï¿½Æ®ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	static Calc calc = null;
 	
 	
-	//ÇÑ¹ø¸¸ ¼öÇà
+	//ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@BeforeClass
 	public static void beforeClass() {
 		 calc = new Calc(1,2);
 		 System.out.println("beforeClass");
 	}
 	
-	//°´Ã¼»ı¼º µî Å×½ºÆ® Àü¿¡ ÇÒÀÏ
+	//ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½×½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@Before
 	public void before() {
 	 
 	  System.out.println("before");
 	}
 	
-	//Å×½ºÆ®
+	//ï¿½×½ï¿½Æ®
 	@Test
 	public void test() {
 		
@@ -48,7 +48,7 @@ public class CalcTest {
 
 	@Test
 	public void test2() {
-		System.out.println("DB¿¬µ¿ Å×½ºÆ®");
+		System.out.println("DBï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®");
 		Connection conn = calc.getConnection();
 		assertNotNull(conn);
 	}
@@ -66,12 +66,12 @@ public class CalcTest {
 	}
 }
 /*
-assertArrayEquals(a, b) :  ¹è¿­ A¿Í B°¡ ÀÏÄ¡ÇÏ´Â Áö È®ÀÎ
-assertEquals(a, b) : °´Ã¼ A¿Í B°¡ °°Àº °ªÀÎÁö È®ÀÎ
-assertEquals(a, b, c) :  °´Ã¼ A¿Í B°¡ °°Àº °ªÀÎÁö È®ÀÎ( a: ¿¹»ó°ª, b:°á°ú°ª, c: ¿ÀÂ÷¹üÀ§)
-assertSame(a, b) : °´Ã¼ A¿Í B°¡ °°Àº °´Ã¼ÀÎÁö È®ÀÎ
-assertTrue(a): Á¶°Ç a°¡ ÂüÀÎÁö È®ÀÎ
-assertFalse(a) : Á¶°Ç a°¡ °ÅÁşÀÎÁö È®ÀÎ
-assertNotNull(a) : °´Ã¤ A°¡ nullÀÌ ¾Æ´ÑÁö È®ÀÎ
-assertNull(a) : °´Ã¼ a°¡ nullÀÎÁö È®ÀÎ
+assertArrayEquals(a, b) :  ë°°ì—´ Aì™€ Bê°€ ì¼ì¹˜í•˜ëŠ” ì§€ í™•ì¸
+assertEquals(a, b) : ê°ì²´ Aì™€ Bê°€ ê°™ì€ ê°’ì¸ì§€ í™•ì¸
+assertEquals(a, b, c) :  ê°ì²´ Aì™€ Bê°€ ê°™ì€ ê°’ì¸ì§€ í™•ì¸( a: ì˜ˆìƒê°’, b:ê²°ê³¼ê°’, c: ì˜¤ì°¨ë²”ìœ„)
+assertSame(a, b) : ê°ì²´ Aì™€ Bê°€ ê°™ì€ ê°ì²´ì¸ì§€ í™•ì¸
+assertTrue(a): ì¡°ê±´ aê°€ ì°¸ì¸ì§€ í™•ì¸
+assertFalse(a) : ì¡°ê±´ aê°€ ê±°ì§“ì¸ì§€ í™•ì¸
+assertNotNull(a) : ê°ì±„ Aê°€ nullì´ ì•„ë‹Œì§€ í™•ì¸
+assertNull(a) : ê°ì²´ aê°€ nullì¸ì§€ í™•ì¸
 */

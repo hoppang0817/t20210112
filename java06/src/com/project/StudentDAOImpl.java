@@ -59,7 +59,7 @@ public class StudentDAOImpl implements StudentDAO{
 
 	@Override
 	public List<Student> selectStudentList() throws Exception {
-		String sql = "SELECT * FROM STUDNE";
+		String sql = "SELECT * FROM STUDENT";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		List<Student> studentList = new ArrayList<Student>();
@@ -102,6 +102,7 @@ public class StudentDAOImpl implements StudentDAO{
 	public Student selectStudentOne(Student student) throws Exception {
 		String sql = "SELECT * FROM STUDENT WHERE STUDENT_ID =?";
 		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1, student.getStudent_id());
 		ResultSet rs = ps.executeQuery();
 		if(rs.next()) {
 			Student obj = new Student(
