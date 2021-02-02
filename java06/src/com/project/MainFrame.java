@@ -15,7 +15,7 @@ public class MainFrame extends JFrame{
 		tabbedPane.add("과목리스트", new MainPanel1(this));
 		tabbedPane.add("학생리스트", new MainPanel2(this));
 		tabbedPane.add("수강리스트", new MainPanel3());
-		
+		tabbedPane.setSelectedIndex(1);
 		this.add(tabbedPane);
 		this.setSize(600, 500);
 		this.setVisible(true);

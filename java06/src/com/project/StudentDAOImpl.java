@@ -59,7 +59,7 @@ public class StudentDAOImpl implements StudentDAO{
 
 	@Override
 	public List<Student> selectStudentList() throws Exception {
-		String sql = "SELECT * FROM STUDENT";
+		String sql = "SELECT * FROM STUDENT  ORDER BY STUDENT_ID";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		List<Student> studentList = new ArrayList<Student>();

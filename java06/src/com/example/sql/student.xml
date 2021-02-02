@@ -23,7 +23,7 @@
 	</update>
 
 	<select id="selectStudentList" resultType="com.project.Student">
-		SELECT * FROM STUDNE
+		SELECT * FROM STUDENT ORDER BY STUDENT_ID
 	</select>
 
 	<select id="selectStudentList1" parameterType="com.project.Student"
