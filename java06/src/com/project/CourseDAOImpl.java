@@ -71,7 +71,7 @@ public class CourseDAOImpl implements CourseDAO {
 			course2.setRegdate(rs.getString("REGDATE"));
 
 			Student student2 = new Student();
-			student2.setstudent_date(rs.getString("STUDENT_ID"));
+			student2.setStudent_id(rs.getString("STUDENT_ID"));
 			student2.setStudent_name(rs.getString("STUDENT_NAME"));
 			student2.setstudent_grade(rs.getInt("STUDENT_GRADE"));
 			course2.setStudent_id(student2);
@@ -103,7 +103,7 @@ public class CourseDAOImpl implements CourseDAO {
 				+ "       WHERE "
 				+ "             COURSE.STUDENT_ID = STUDENT.STUDENT_ID"
 				+ "       )TABLE1, SUBJECT"
-				+ " WHERE TABLE1.SUBJECT_CODE = SUBJECT.SUBJECT_CODE";
+				+ " WHERE TABLE1.SUBJECT_CODE = SUBJECT.SUBJECT_CODE ORDER BY TABLE1.CODE DESC";
     
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
@@ -115,7 +115,7 @@ public class CourseDAOImpl implements CourseDAO {
 			course.setRegdate(rs.getString("REGDATE"));
 
 			Student student = new Student();
-			student.setstudent_date(rs.getString("STUDENT_ID"));
+			student.setStudent_id(rs.getString("STUDENT_ID"));
 			student.setStudent_name(rs.getString("STUDENT_NAME"));
 			student.setstudent_grade(rs.getInt("STUDENT_GRADE"));
 			course.setStudent_id(student);

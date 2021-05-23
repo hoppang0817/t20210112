@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import com.example.mybatis.MyBatisStudentDAOImpl;
 
 public class MainPanel2 extends JPanel implements ActionListener {
-	private MyBatisStudentDAOImpl studentDAO = null;
+	private StudentDAOImpl studentDAO = null;
 	private JTable table = null;
 	private JFrame frame = null;
 	private final String[] column = { "학번", "이름", "학년", "연락처", "전공", "등록일" };
@@ -32,7 +33,7 @@ public class MainPanel2 extends JPanel implements ActionListener {
 	public MainPanel2(JFrame frame) {
 		super();
 		this.frame = frame;
-		this.studentDAO = new MyBatisStudentDAOImpl();
+		this.studentDAO = new StudentDAOImpl(DBConnection.getConnection());
 		this.setLayout(new BorderLayout());
 		addComponnent();
 	}
@@ -105,7 +106,7 @@ public class MainPanel2 extends JPanel implements ActionListener {
 	public void updateTable() throws Exception {
 
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		if (model.getRowCount() > 0) { // 데이터가 있다면 기존데이터 다 지우기
+		if (model.getRowCount() > 0) { // 데이터가 있다면 기존데이터 다 지우기, 기존 데이터를 삭제해야 insert,update한 데이터들이 바로 나타남
 			for (int i = model.getRowCount() - 1; i >= 0; i--) {
 				model.removeRow(i);
 			}
@@ -129,9 +130,8 @@ public class MainPanel2 extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == button) {
 			createButton();
-
 		} else if (e.getSource() == button1) {
-
+			createButton1();
 		} else if (e.getSource() == button2) {
 			createButton2();
 		}
@@ -148,9 +148,9 @@ public class MainPanel2 extends JPanel implements ActionListener {
 		panel.setLayout(null);
 
 		JLabel lable = new JLabel("학번");
-		lable.setBounds(10, 10, 100, 20);
+		lable.setBounds(10, 10, 100, 20); // 라벨위치 (위,아래,왼쪽,오른쪽)
 		JTextField field = new JTextField();
-		field.setBounds(100, 10, 100, 20);
+		field.setBounds(100, 10, 100, 20); // 텍스트입력창 위치(위,아래,왼쪽,오른쪽)
 
 		JLabel lable1 = new JLabel("이름");
 		lable1.setBounds(10, 40, 100, 20);
@@ -190,6 +190,8 @@ public class MainPanel2 extends JPanel implements ActionListener {
 					int result = studentDAO.insertStudent(s1);
 					if (result > 0) {
 						updateTable();
+						
+						JOptionPane.showMessageDialog(null, "등록완료", "메세지", JOptionPane.INFORMATION_MESSAGE);
 						dialog.setVisible(false);
 					}
 				} catch (Exception e1) {
@@ -226,17 +228,36 @@ public class MainPanel2 extends JPanel implements ActionListener {
 		dialog.setVisible(true);
 
 	}
-	
+
 	public void createButton1() {
+		// 테이블에 선택 위치 가져오기
+		try {
+			int row = table.getSelectedRow();
+			if (row >= 0) {
+				int ret = 0;
+				ret = JOptionPane.showConfirmDialog(null, "삭제하시겠습니까?", "삭제", JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.INFORMATION_MESSAGE);
 
-		int row = table.getSelectedRow();
-		if (row >= 0) {
+				if (ret == 0) {
+					// 테이블의 row,0 번째 위치의 값을 가져옴
+					String value = table.getModel().getValueAt(row, 0).toString();
 
+					Student s1 = new Student();
+					s1.setStudent_id(value);
+
+					int result = studentDAO.deleteStudent(s1);
+					if (result > 0) {
+						updateTable();
+					}
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "선택된 항목이 없습니다");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}
-
-	
 
 	public void createButton2() {
 
@@ -263,27 +284,72 @@ public class MainPanel2 extends JPanel implements ActionListener {
 				lable.setBounds(10, 10, 100, 20);
 				JTextField field = new JTextField();
 				field.setBounds(100, 10, 100, 20);
+				field.setText(student.getStudent_id());
 
 				JLabel lable1 = new JLabel("이름");
 				lable1.setBounds(10, 40, 100, 20);
 				JTextField field1 = new JTextField();
 				field1.setBounds(100, 40, 100, 20);
+				field1.setText(student.getStudent_name());
 
 				JLabel lable2 = new JLabel("학년");
 				lable2.setBounds(10, 70, 100, 20);
 				JTextField field2 = new JTextField();
 				field2.setBounds(100, 70, 100, 20);
+				field2.setText(String.valueOf(student.getstudent_grade()));
 
 				JLabel lable3 = new JLabel("연락처");
 				lable3.setBounds(10, 100, 100, 20);
 				JTextField field3 = new JTextField();
 				field3.setBounds(100, 100, 100, 20);
+				field3.setText(student.getstudent_phone());
 
 				JLabel lable4 = new JLabel("전공");
 				lable4.setBounds(10, 130, 100, 20);
 				JTextField field4 = new JTextField();
 				field4.setBounds(100, 130, 100, 20);
+				field4.setText(student.getstudent_major());
 
+				JButton btnupdate = new JButton("수정");
+				btnupdate.setBounds(20, 190, 80, 20);
+				btnupdate.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						String id = field.getText();
+						String name = field1.getText();
+						String grade = field2.getText();
+						String phone = field3.getText();
+						String major = field4.getText();
+
+						try {
+							int result = studentDAO.updateStudent(new Student(id, name, Integer.valueOf(grade), phone, major, null));
+
+							if (result > 0) {
+								updateTable();
+								JOptionPane.showMessageDialog(null, "수정완료", "메세지", JOptionPane.INFORMATION_MESSAGE);
+								dialog.setVisible(false);
+							}
+						} catch (Exception e2) {
+							e2.printStackTrace();
+						}
+					}
+
+				});
+
+				JButton btnclose = new JButton("닫기");
+				btnclose.setBounds(120, 190, 80, 20);
+				btnclose.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						dialog.setVisible(false);
+
+					}
+				});
+
+				panel.add(btnupdate);
+				panel.add(btnclose);
 				panel.add(lable4);
 				panel.add(field4);
 				panel.add(lable3);
@@ -305,5 +371,4 @@ public class MainPanel2 extends JPanel implements ActionListener {
 		}
 	}
 
-	
 }

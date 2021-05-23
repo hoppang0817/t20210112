@@ -44,7 +44,7 @@ public class StudentDAOImpl implements StudentDAO{
 
 	@Override
 	public int updateStudent(Student student) throws Exception {
-		String sql = "UPDATE FROM STUDENT SET STUDENT_NAME =?,STUDENT_GRADE=?,STUDENT_PHONE=?,STUDENT_MAJOR =? WHERE STUDENT_ID=?";
+		String sql = "UPDATE STUDENT SET STUDENT_NAME =?,STUDENT_GRADE=?,STUDENT_PHONE=?,STUDENT_MAJOR =? WHERE STUDENT_ID=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, student.getStudent_name());
 		ps.setInt(2, student.getstudent_grade());
